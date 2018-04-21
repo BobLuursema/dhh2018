@@ -1,7 +1,7 @@
 <?php
 //============================== PREVENTIE SQL INJECTION ==============================
 
-    //------------ PREPARED STATEMENTS VIA PDO CLASS ------------
+    //------------ PREPARED STATEMENTS VIA MYSQL OBJECT ------------
 
     function createPatient($obj){
         //$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME)
