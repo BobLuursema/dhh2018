@@ -469,7 +469,7 @@ export default {
         this.info.akkoord_privacy_policy = true
     },
     complete_address() {
-        var url = '/backend/completeaddress/?postcode=X_P&number=X_N'
+        var url = '/backend/completeaddress.php?postcode=X_P&number=X_N'
         var url = url.replace('X_P', this.info.postcode).replace('X_N', this.info.huisnummer)
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
