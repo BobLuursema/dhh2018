@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   if($confirmed == true){
     createPatient($obj);
-    echo "Patient aangemaakt";
   }
 }
 
