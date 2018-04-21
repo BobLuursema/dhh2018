@@ -33,11 +33,12 @@
         $patientnummer = $obj->patientnummer;
         $toestemming_ophalen_gegevens = $obj->toestemming_ophalen_gegevens;
         $akkoord_privacy_policy = $obj->akkoord_privacy_policy;
+        $straatnaam = $obj->straatnaam;
 
 
-        $stmt = $db->prepare("INSERT INTO patienten(voorletters, roepnaam, voorvoegsel, geboortenaam, geboortedatum, geslacht, meerling, partnernaam, voorvoegsel_partnernaam, telefoon, mobiel, email, woonplaats, postcode, huisnummer, toevoeging, land, foto, patientnummer, correspondentie_adres, huisarts, tandarts, apotheek, toestemming_ophalen_gegevens, akkoord_privacy_policy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt = $db->prepare("INSERT INTO patienten(voorletters, roepnaam, voorvoegsel, geboortenaam, geboortedatum, geslacht, meerling, partnernaam, voorvoegsel_partnernaam, telefoon, mobiel, email, woonplaats, postcode, huisnummer, toevoeging, land, foto, patientnummer, correspondentie_adres, huisarts, tandarts, apotheek, toestemming_ophalen_gegevens, akkoord_privacy_policy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        $stmt->bind_param('ssssssssssssssisssissssii', $voorletters, $roepnaam, $voorvoegsel, $geboortenaam,$geboortedatum,$geslacht,$meerling,$partnernaam,$voorvoegsel_partnernaam,$telefoon,$mobiel,$email,$woonplaats,$postcode,$huisnummer,$toevoeging,$land,$foto,$patientnummer,$correspondentie_adres,$huisarts,$tandarts,$apotheek,$toestemming_ophalen_gegevens,$akkoord_privacy_policy);
+        $stmt->bind_param('ssssssssssssssisssissssiis', $voorletters, $roepnaam, $voorvoegsel, $geboortenaam,$geboortedatum,$geslacht,$meerling,$partnernaam,$voorvoegsel_partnernaam,$telefoon,$mobiel,$email,$woonplaats,$postcode,$huisnummer,$toevoeging,$land,$foto,$patientnummer,$correspondentie_adres,$huisarts,$tandarts,$apotheek,$toestemming_ophalen_gegevens,$akkoord_privacy_policy,$straatnaam);
         
         $stmt->execute();
         $stmt->close();

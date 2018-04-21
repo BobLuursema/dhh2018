@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   $patient = getPatient($obj);
 
-  if($patient->num_rows() > 0){
+  if(mysqli_num_rows($patient) > 0){
     echo "Patient staat al in het systeem.";
   }
 
@@ -32,3 +32,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
  ?>
+count($patient)
