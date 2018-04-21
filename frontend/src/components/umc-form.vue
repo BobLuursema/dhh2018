@@ -436,7 +436,7 @@ export default {
                     this.crash = true
                 }
             }
-            else {
+            else if (xhttp.readyState === XMLHttpRequest.DONE) {
                 console.log('not successful')
             }
         }
@@ -475,10 +475,10 @@ export default {
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 var jsonresponse = JSON.parse(xhttp.response)
-                this.woonplaats = jsonresponse._embedded.addresses[0].city.label
-                this.straatnaam = jsonresponse._embedded.addresses[0].street
+                this.info.woonplaats = jsonresponse._embedded.addresses[0].city.label
+                this.info.straatnaam = jsonresponse._embedded.addresses[0].street
             }
-            else {
+            else if (xhttp.readyState === XMLHttpRequest.DONE){
                 console.log('not successful')
             }
         }
