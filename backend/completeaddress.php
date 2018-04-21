@@ -10,7 +10,6 @@
             CURLOPT_HTTPHEADER => array (
                 "cache-control: no-cache",
                 "X-Api-Key: JEypHWWhFR5a5CJWRQ0uX2kvVU2Bsy6Y6oMz4svO",
-                "Content-Type: application/json"
             ),
         ));
 
