@@ -23,6 +23,13 @@
         </div>
 
         <div class="field">
+            <label class="label">Geboortenaam</label>
+            <div class="control">
+                <input v-model="info.geboortenaam" class="input" type="text" placeholder="Geboortenaam">
+            </div>
+        </div>
+
+        <div class="field">
             <label class="label">Geboortedatum</label>
             <div class="control">
                 <input v-model="info.geboortedatum" class="input" type="date">
@@ -188,7 +195,7 @@
         </div>
 
         <a v-on:click="send" class="button">Verzenden</a>
-
+        <a v-on:click="fill" class="button">Vul formulier in</a>
     </form>
 </template>
 
@@ -204,7 +211,7 @@ export default {
             geboortenaam: '',
             geboortedatum: '',
             geslacht: '',
-            meerling: '',
+            meerling: 'Nee',
             partnernaam: '',
             voorvoegsel_partnernaam: '',
             telefoon: '',
@@ -212,23 +219,22 @@ export default {
             email: '',
             woonplaats: '',
             postcode: '',
-            huisnummer: '',
+            huisnummer: null,
             toevoeging: '',
             land: '',
             foto: '',
-            patientnummer: '',
+            patientnummer: null,
             correspondentie_adres: '',
             huisarts: '',
             tandarts: '',
             apotheek: '',
-            toestemming_ophalen_gegevens: '',
-            akkoord_privacy_policy: ''
+            toestemming_ophalen_gegevens: false,
+            akkoord_privacy_policy: false
         }
     }
   },
   methods: {
     send() {
-        console.log('starting')
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
@@ -239,7 +245,32 @@ export default {
             }
         }
         xhttp.open('POST', '/backend/patient/create.php', true)
+        xhttp.setRequestHeader("Content-Type", "application/json")
         xhttp.send(JSON.stringify(this.info))
+    },
+    fill() {
+        this.info.voorletters = 'AT'
+        this.info.roepnaam = 'Adriaan'
+        this.info.voorvoegsel = ''
+        this.info.geboortenaam = 'Georgetina'
+        this.info.geslacht = 'man'
+        this.info.meerling = 'Nee'
+        this.info.partnernaam = 'Laan'
+        this.info.voorvoegsel_partnernaam = 'van der'
+        this.info.telefoon = '0031481635412'
+        this.info.mobiel = '0610342567'
+        this.info.email = 'ageorgetina@example.com'
+        this.info.woonplaats = 'Rotterdam'
+        this.info.postcode = '8723KD'
+        this.info.huisnummer = 93
+        this.info.toevoeging = 'a'
+        this.info.land = 'Nederland'
+        this.info.patientnummer = '19845987'
+        this.info.huisarts = 'Huisartsenpraktijk Fanta'
+        this.info.tandarts = 'Cisco Tandheelkunde'
+        this.info.apotheek = 'Apotheek Chaudfontaine'
+        this.info.toestemming_ophalen_gegevens = true
+        this.info.akkoord_privacy_policy = true
     }
   }
 }
