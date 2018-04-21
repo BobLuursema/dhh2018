@@ -470,7 +470,7 @@ export default {
     },
     complete_address() {
         var url = '/backend/completeaddress/?postcode=X_P&number=X_N'
-        var url = url.replace('X_P', this.postcode).replace('X_N', this.huisnummer)
+        var url = url.replace('X_P', this.info.postcode).replace('X_N', this.info.huisnummer)
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
