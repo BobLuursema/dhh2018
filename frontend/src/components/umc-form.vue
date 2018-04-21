@@ -271,6 +271,7 @@ export default {
         this.info.apotheek = 'Apotheek Chaudfontaine'
         this.info.toestemming_ophalen_gegevens = true
         this.info.akkoord_privacy_policy = true
+
     }
   }
 }

@@ -3,7 +3,7 @@
 require_once('../initialize.php');
 $confirmed = true;
 
-if(isset($_POST['data'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   header("Content-type: application/json; charset=UTF-8");
   $obj = json_decode($_POST['data'],false);
 
@@ -17,6 +17,18 @@ if(isset($_POST['data'])){
       $confirmed = false;
     }
   }
+
+  // $patient = getPatient($obj);
+  //
+  // if($patient->num_rows() > 0){
+  //   while($row = $patient->fetch_assoc()){
+  //     $patient = new Patient();
+  //     $patient->voorletters = $row['voorletters'];
+  //     $patient->geboortenaam = $row['geboortenaam'];
+  //     $patient->geboortedatum = $row['geboortedatum'];
+  //     $patient-> = $row['voorletters'];
+  //   }
+  // }
 
   if($confirmed == true){
     createPatient($obj);
