@@ -1,10 +1,11 @@
 <?php
 
 //require_once('initialize.php');
-echo 'Hallo';
 
 
-test('R.A');
+
+
+test();
 
 function test($voorletters,$roepnaam,$voorvoegsel,$geboortenaam,$geboortedatum,$geslacht,$meerling,$partnernaam,$voorvoegsel_partnernaam,$telefoon,$mobiel,$email,$woonplaats,$postcode,$toevoeging,$land,$foto,$correspondentie_adres,$huisarts,$tandarts,$apotheek){
 

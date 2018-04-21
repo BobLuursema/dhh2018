@@ -238,7 +238,7 @@ export default {
                 console.log('not successful')
             }
         }
-        xhttp.open('POST', '/api', true)
+        xhttp.open('POST', '/backend/patient/create.php', true)
         xhttp.send(JSON.stringify(this.info))
     }
   }
