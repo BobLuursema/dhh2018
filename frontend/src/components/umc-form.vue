@@ -239,7 +239,8 @@ export default {
             }
         }
         xhttp.open('POST', '/backend/patient/create.php', true)
-        xhttp.send(JSON.stringify(this.info))
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("data="+JSON.stringify(this.info))
     }
   }
 }
