@@ -1,5 +1,4 @@
 <?php
-
 //============================== PREVENTIE SQL INJECTION ==============================
 
     //------------ PREPARED STATEMENTS VIA PDO CLASS ------------
@@ -14,3 +13,7 @@
         $red = $preparedStatement->fetchAll();
         
     };
+
+
+ ?>
+
