@@ -18,6 +18,12 @@ if(isset($_POST['data'])){
     }
   }
 
+  $patient = getPatient($obj);
+
+  if($patient->num_rows() > 0){
+    
+  }
+
   if($confirmed == true){
     createPatient($obj);
     echo "Patient aangemaakt";

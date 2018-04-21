@@ -14,13 +14,17 @@
 
     };
 
-    // function getPatient(){
-    //     global $db;
-    //
-    //     $sql = "SELECT * FROM patienten WHERE ";
-    //     $sql .= " ";
-    //
-    // }
+    function getPatient($obj){
+        global $db;
+
+        $sql = "SELECT * FROM patienten WHERE ";
+        $sql .= "patientnummer='$obj->patientnummer' OR ";
+        $sql .= "voorletters='$obj->voorletters' AND geboortenaam='$obj->geboortenaam' AND geboortedatum='$obj->geboortedatum'";
+        
+        $result = mysqli_query($db, $sql);
+        confirm_result_set($result);
+        return $result;
+    }
 
 
  ?>
