@@ -235,6 +235,7 @@ export default {
   },
   methods: {
     send() {
+
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
@@ -251,8 +252,8 @@ export default {
     fill() {
         this.info.voorletters = 'AT'
         this.info.roepnaam = 'Adriaan'
-        this.info.voorvoegsel = ''
         this.info.geboortenaam = 'Georgetina'
+        this.info.geboortedatum = '04-04-1979'
         this.info.geslacht = 'man'
         this.info.meerling = 'Nee'
         this.info.partnernaam = 'Laan'
@@ -271,7 +272,6 @@ export default {
         this.info.apotheek = 'Apotheek Chaudfontaine'
         this.info.toestemming_ophalen_gegevens = true
         this.info.akkoord_privacy_policy = true
-
     }
   }
 }
