@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   if(mysqli_num_rows($patient) > 0){
     echo "Patient staat al in het systeem.";
+    $confirmed = false;
   }
 
   if($confirmed == true){
