@@ -5,7 +5,8 @@ $confirmed = true;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   header("Content-type: application/json; charset=UTF-8");
-  $obj = json_decode($_POST['data'],false);
+  $request_body = file_get_contents('php://input');
+  $obj = json_decode($request_body);
 
   echo "Patient ontvangen in de backend: " . $obj->roepnaam;
 
