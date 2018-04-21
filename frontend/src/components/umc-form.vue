@@ -229,6 +229,7 @@ export default {
   methods: {
     send() {
         console.log('starting')
+        console.log(this.info);
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
