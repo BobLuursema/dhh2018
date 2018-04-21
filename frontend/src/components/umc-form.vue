@@ -472,11 +472,12 @@ export default {
         var url = '/backend/completeaddress.php?postcode=X_P&number=X_N'
         var url = url.replace('X_P', this.info.postcode).replace('X_N', this.info.huisnummer)
         var xhttp = new XMLHttpRequest()
+        var self = this
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 var jsonresponse = JSON.parse(xhttp.response)
-                this.info.woonplaats = jsonresponse._embedded.addresses[0].city.label
-                this.info.straatnaam = jsonresponse._embedded.addresses[0].street
+                self.info.woonplaats = jsonresponse._embedded.addresses[0].city.label
+                self.info.straatnaam = jsonresponse._embedded.addresses[0].street
             }
             else if (xhttp.readyState === XMLHttpRequest.DONE){
                 console.log('not successful')
