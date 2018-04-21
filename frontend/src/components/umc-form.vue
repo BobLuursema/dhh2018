@@ -475,8 +475,8 @@ export default {
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 var jsonresponse = xhttp.response
-                this.woonplaats = jsonresponse.addresses[0].city.label
-                this.straatnaam = jsonresponse.addresses[0].street
+                this.woonplaats = jsonresponse._embedded.addresses[0].city.label
+                this.straatnaam = jsonresponse._embedded.addresses[0].street
             }
             else {
                 console.log('not successful')
