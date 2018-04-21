@@ -1,0 +1,70 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.7
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Gegenereerd op: 21 apr 2018 om 09:55
+-- Serverversie: 5.6.38
+-- PHP-versie: 7.2.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `UMCregistratie`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `patienten`
+--
+
+CREATE TABLE `patienten` (
+  `id` int(11) NOT NULL,
+  `voorletters` varchar(10) NOT NULL,
+  `roepnaam` varchar(255) NOT NULL,
+  `voorvoegsel` varchar(10) DEFAULT NULL,
+  `geboortenaam` varchar(255) NOT NULL,
+  `geboortedatum` date NOT NULL,
+  `geslacht` varchar(10) NOT NULL,
+  `meerling` varchar(10) NOT NULL,
+  `partnernaam` varchar(255) DEFAULT NULL,
+  `voorvoegsel_partnernaam` varchar(10) DEFAULT NULL,
+  `telefoon` varchar(20) DEFAULT NULL,
+  `mobiel` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `woonplaats` varchar(255) NOT NULL,
+  `postcode` varchar(16) NOT NULL,
+  `huisnummer` int(10) NOT NULL,
+  `toevoeging` varchar(10) DEFAULT NULL,
+  `land` varchar(255) NOT NULL,
+  `foto` varchar(500) DEFAULT NULL,
+  `patientnummer` int(11) DEFAULT NULL,
+  `correspondentie_adres` varchar(255) DEFAULT NULL,
+  `huisarts` varchar(255) DEFAULT NULL,
+  `tandarts` varchar(255) DEFAULT NULL,
+  `apotheek` varchar(255) DEFAULT NULL,
+  `toestemming_ophalen_gegevens` tinyint(1) NOT NULL,
+  `akkoord_privacy_policy` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexen voor geëxporteerde tabellen
+--
+
+--
+-- Indexen voor tabel `patienten`
+--
+ALTER TABLE `patienten`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT voor geëxporteerde tabellen
+--
+
+--
+-- AUTO_INCREMENT voor een tabel `patienten`
+--
+ALTER TABLE `patienten`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
