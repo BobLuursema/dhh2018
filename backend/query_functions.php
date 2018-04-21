@@ -44,8 +44,6 @@
         
         $stmt->execute();
 
-        $red = $preparedStatement->fetchAll();
-
     };
 
     function getPatient($obj){
