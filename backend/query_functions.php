@@ -8,7 +8,6 @@
         //$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME)
         global $db;
 
-        
         $voorletters = $obj->voorletters;
         $roepnaam = $obj->roepnaam;
         $voorvoegsel = $obj->voorvoegsel;
