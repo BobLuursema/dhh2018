@@ -1,148 +1,257 @@
 <template>
     <form method="post">
 
-        <div class="field">
-            <label class="label">Voorletters</label>
-            <div class="control">
-                <input v-model="info.voorletters" class="input" type="text" placeholder="Voorletters">
+        <div class="box">
+
+            <h2>Basisgegevens</h2>
+
+            <div class="columns is-mobile">
+
+                <div class="field column ">
+                    <label class="label">Voorletters</label>
+                    <div class="control">
+                        <input v-model="info.voorletters" class="input" type="text" placeholder="Voorletters">
+                    </div>
+                </div>
+
+                <div class="field column">
+                    <label class="label">Roepnaam</label>
+                    <div class="control">
+                        <input v-model="info.roepnaam" class="input" type="text" placeholder="Roepnaam">
+                    </div>
+                </div>
+            
             </div>
+
+            <div class="columns is-mobile">
+            
+                <div class="field column">
+                    <label class="label">Tussenvoegsel</label>
+                    <div class="control">
+                        <input v-model="info.voorvoegsel" class="input" type="text" placeholder="Tussenvoegsel">
+                    </div>
+                </div>
+
+                <div class="field column">
+                    <label class="label">Geboortenaam</label>
+                    <div class="control">
+                        <input v-model="info.geboortenaam" class="input" type="text" placeholder="Geboortenaam">
+                    </div>
+                </div>
+            
+            </div>
+
+            <div class="field">
+                <label class="label">Geboortedatum</label>
+                <div class="control">
+                    <input v-model="info.geboortedatum" class="input" type="date">
+                </div>
+            </div>
+
+            <div class="columns is-mobile">
+
+                <div class="field column">
+                    <label class="label">Aanhef</label>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" value="man" v-model="info.geslacht">
+                            Man
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="vrouw" v-model="info.geslacht">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field column">
+                    <label class="label">Meerling</label>
+                    <div class="select">
+                        <select v-model="info.meerling">
+                            <option>Ja</option>
+                            <option selected>Nee</option>
+                            <option>Onbekend</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="file field column">
+                    <label class="file-label">
+                        <input class="file-input" type="file">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Kies een foto
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            
+            </div>
+
         </div>
 
-        <div class="field">
-            <label class="label">Roepnaam</label>
-            <div class="control">
-                <input v-model="info.roepnaam" class="input" type="text" placeholder="Roepnaam">
+        <div class="columns is-mobile">
+
+            <div class="field column">
+                <label class="label">Voorvoegsel</label>
+                <div class="control">
+                    <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel">
+                </div>
             </div>
+
+            <div class="field column">
+                <label class="label">Partnernaam</label>
+                <div class="control">
+                    <input v-model="info.partnernaam" class="input" type="text" placeholder="Partnernaam">
+                </div>
+            </div>
+
         </div>
 
-        <div class="field">
-            <label class="label">Tussenvoegsel</label>
-            <div class="control">
-                <input v-model="info.voorvoegsel" class="input" type="text" placeholder="Tussenvoegsel">
+        <div class="box">
+
+            <h2>Contactgegevens</h2>
+
+            <div class="columns is-mobile">
+
+                <div class="field column">
+                    <label class="label">Telefoonnummer</label>
+                    <div class="control">
+                        <input v-model="info.telefoon" class="input" type="tel">
+                    </div>
+                </div>
+
+                <div class="field column">
+                    <label class="label">Mobiel nummer</label>
+                    <div class="control">
+                        <input v-model="info.mobiel" class="input" type="tel">
+                    </div>
+                </div>
+
             </div>
+
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input v-model="info.email" class="input" type="email">
+                </div>
+            </div>
+
         </div>
 
-        <div class="field">
-            <label class="label">Geboortenaam</label>
-            <div class="control">
-                <input v-model="info.geboortenaam" class="input" type="text" placeholder="Geboortenaam">
-            </div>
-        </div>
+        <div class="box">
 
-        <div class="field">
-            <label class="label">Geboortedatum</label>
-            <div class="control">
-                <input v-model="info.geboortedatum" class="input" type="date">
-            </div>
-        </div>
+            <h2>Adresgegevens</h2>
 
-        <div class="field">
-            <label class="label">Geslacht</label>
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" value="man" v-model="info.geslacht">
-                    Man
-                </label>
-                <label class="radio">
-                    <input type="radio" value="vrouw" v-model="info.geslacht">
-                    Vrouw
-                </label>
-            </div>
-        </div>
+            <div class="columns is-mobile">
 
-        <div class="field">
-            <label class="label">Meerling</label>
-            <div class="select">
-                <select v-model="info.meerling">
-                    <option>Ja</option>
-                    <option selected>Nee</option>
-                    <option>Onbekend</option>
-                </select>
-            </div>
-        </div>
+                <div class="field column is-half">
+                    <label class="label">Postcode</label>
+                    <div class="control">
+                        <input v-model="info.postcode" class="input" type="text" placeholder="Postcode">
+                    </div>
+                </div>
 
-        <div class="field">
-            <label class="label">Partnernaam</label>
-            <div class="control">
-                <input v-model="info.partnernaam" class="input" type="text" placeholder="Partnernaam">
-            </div>
-        </div>
+                <div class="field column">
+                    <label class="label">Huisnummer</label>
+                    <div class="control">
+                        <input v-model="info.huisnummer" class="input" type="text" placeholder="Huisnummer">
+                    </div>
+                </div>
 
-        <div class="field">
-            <label class="label">Voorvoegsel</label>
-            <div class="control">
-                <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel">
-            </div>
-        </div>
+                <div class="field column">
+                    <label class="label">Toevoeging</label>
+                    <div class="control">
+                        <input v-model="info.toevoeging" class="input" type="text" placeholder="Toevoeging">
+                    </div>
+                </div>
 
-        <div class="field">
-            <label class="label">Telefoonnummer</label>
-            <div class="control">
-                <input v-model="info.telefoon" class="input" type="tel">
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Mobiel nummer</label>
-            <div class="control">
-                <input v-model="info.mobiel" class="input" type="tel">
+            <div class="columns is-mobile">
+
+                <div class="field column">
+                    <label class="label">Woonplaats</label>
+                    <div class="control">
+                        <input v-model="info.woonplaats" class="input" type="text" placeholder="Woonplaats">
+                    </div>
+                </div>
+
+                <div class="field column">
+                    <label class="label">Straatnaam</label>
+                    <div class="control">
+                        <input v-model="info.straatnaam" class="input" type="text" placeholder="straatnaam">
+                    </div>
+                </div>
+            
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-                <input v-model="info.email" class="input" type="email">
+            <div class="field">
+                <label class="label">Land</label>
+                <div class="control">
+                    <input v-model="info.land" class="input" type="text" placeholder="Land">
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Woonplaats</label>
-            <div class="control">
-                <input v-model="info.woonplaats" class="input" type="text" placeholder="Woonplaats">
+            <div class="box">
+
+                <h2>Correspondentieadres</h2>
+
+                <div class="columns is-mobile">
+
+                    <div class="field column is-half">
+                        <label class="label">Postcode</label>
+                        <div class="control">
+                            <input v-model="info.cor_postcode" class="input" type="text" placeholder="Postcode">
+                        </div>
+                    </div>
+
+                    <div class="field column">
+                        <label class="label">Huisnummer</label>
+                        <div class="control">
+                            <input v-model="info.cor_huisnummer" class="input" type="text" placeholder="Huisnummer">
+                        </div>
+                    </div>
+
+                    <div class="field column">
+                        <label class="label">Toevoeging</label>
+                        <div class="control">
+                            <input v-model="info.cor_toevoeging" class="input" type="text" placeholder="Toevoeging">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="columns is-mobile">
+
+                    <div class="field column">
+                        <label class="label">Woonplaats</label>
+                        <div class="control">
+                            <input v-model="info.cor_woonplaats" class="input" type="text" placeholder="Woonplaats">
+                        </div>
+                    </div>
+
+                    <div class="field column">
+                        <label class="label">Straatnaam</label>
+                        <div class="control">
+                            <input v-model="info.cor_straatnaam" class="input" type="text" placeholder="straatnaam">
+                        </div>
+                    </div>
+                
+                </div>
+
+                <div class="field">
+                    <label class="label">Land</label>
+                    <div class="control">
+                        <input v-model="info.cor_land" class="input" type="text" placeholder="Land">
+                    </div>
+                </div>
+
             </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Postcode</label>
-            <div class="control">
-                <input v-model="info.postcode" class="input" type="text" placeholder="Postcode">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Huisnummer</label>
-            <div class="control">
-                <input v-model="info.huisnummer" class="input" type="text" placeholder="Huisnummer">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Toevoeging</label>
-            <div class="control">
-                <input v-model="info.toevoeging" class="input" type="text" placeholder="Toevoeging">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label">Land</label>
-            <div class="control">
-                <input v-model="info.land" class="input" type="text" placeholder="Land">
-            </div>
-        </div>
-
-        <div class="file">
-            <label class="file-label">
-                <input class="file-input" type="file">
-                <span class="file-cta">
-                    <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
-                        Kies een foto
-                    </span>
-                </span>
-            </label>
+        
         </div>
 
         <div class="field">
@@ -214,14 +323,25 @@ export default {
             meerling: 'Nee',
             partnernaam: '',
             voorvoegsel_partnernaam: '',
+
             telefoon: '',
             mobiel: '',
             email: '',
+
             woonplaats: '',
+            straatnaam: '',
             postcode: '',
             huisnummer: null,
             toevoeging: '',
             land: '',
+
+            cor_woonplaats: '',
+            cor_straatnaam: '',
+            cor_postcode: '',
+            cor_huisnummer: null,
+            cor_toevoeging: '',
+            cor_land: '',
+
             foto: '',
             patientnummer: null,
             correspondentie_adres: '',
