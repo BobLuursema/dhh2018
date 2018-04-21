@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
   $required = [$obj->voorletters,$obj->roepnaam,$obj->geboortenaam,$obj->geboortedatum, $obj->geslacht,$obj->meerling,$obj->mobiel,$obj->email,$obj->woonplaats,$obj->postcode,$obj->huisnummer,$obj->land,$obj->toestemming_ophalen_gegevens,$obj->akkoord_privacy_policy];
 
   foreach ($required as $field) {
-    if(!isset($field)){
+    if(!isset($field) || empty($field)){
       echo "Please fill out all required fields";
       $confirmed = false;
     }
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   $patient = getPatient($obj);
 
-  if($patient->num_rows() > 0){
+  if(mysqli_num_rows($patient) > 0){
     echo "Patient staat al in het systeem.";
   }
 
