@@ -7,6 +7,8 @@ if(isset($_POST['data'])){
   header("Content-type: application/json; charset=UTF-8");
   $obj = json_decode($_POST['data'],false);
 
+  echo "Patient ontvangen in de backend: " . $obj->roepnaam;
+
   $required = [$obj->voorletters,$obj->roepnaam,$obj->geboortenaam,$obj->geboortedatum, $obj->geslacht,$obj->meerling,$obj->mobiel,$obj->email,$obj->woonplaats,$obj->postcode,$obj->huisnummer,$obj->land,$obj->toestemming_ophalen_gegevens,$obj->akkoord_privacy_policy];
 
   foreach ($required as $field) {
@@ -17,7 +19,8 @@ if(isset($_POST['data'])){
   }
 
   if($confirmed == true){
-    create_patient($obj);
+    createPatient($obj);
+    echo "Patient aangemaakt";
   }
 }
 
