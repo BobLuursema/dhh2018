@@ -1,19 +1,42 @@
 <?php
 
-require_once('initialize.php');
+  require_once('./initialize.php');
+
+   function test($obj){
+
+        global $db;
+
+        $voorletters = $obj->voorletters;
+        $roepnaam = $obj->roepnaam;
+        $voorvoegsel = $obj->voorvoegsel;
+        $geboortenaam = $obj->geboortenaam;
+        $geboortedatum = $obj->geboortedatum;
+        $geslacht = $obj->geslacht;
+        $meerling  = $obj->meerling;
+        $partnernaam = $obj->partnernaam;
+        $voorvoegsel_partnernaam = $obj->voorvoegsel_partnernaam;
+        $telefoon = $obj->telefoon;
+        $mobiel = $obj->mobiel;
+        $email = $obj->email;
+        $woonplaats = $obj->woonplaats;
+        $postcode = $obj->postcode;
+        $toevoeging = $obj->toevoeging;
+        $land = $obj->land;
+        $foto = $obj->foto;
+        $correspondentie_adres = $obj->correspondentie_adres;
+        $huisarts = $obj->huisarts;
+        $tandarts = $obj->tandarts;
+        $apotheek = $obj->apotheek;
+        $huisnummer = $obj->huisnummer;
+        $patientnummer = $obj->patientnummer;
+        $toestemming_ophalen_gegevens = $obj->toestemming_ophalen_gegevens;
+        $akkoord_privacy_policy = $obj->akkoord_privacy_policy;
 
 
-test();
+        $preparedStatement = $db->prepare('INSERT INTO patienten(voorletters, roepnaam, voorvoegsel, geboortenaam, geboortedatum, geslacht, meerling, partnernaam, voorvoegsel_partnernaam, telefoon, mobiel, email, woonplaats, postcode, huisnummer, toevoeging, land, foto, patientnummer, correspondentie_adres, huisarts, tandarts, apotheek, toestemming_ophalen_gegevens, akkoord_privacy_policy) VALUES (:voorletters,:roepnaam,:voorvoegsel,:geboortenaam,'.$geboortedatum.',:geslacht,:meerling,:partnernaam,:voorvoegsel_partnernaam,:telefoon,:mobiel,:email,:woonplaats,:postcode,'.$huisnummer.',:toevoeging,:land,:foto,'.$patientnummer.',:correspondentie_adres,:huisarts,:tandarts,:apotheek,'.$toestemming_ophalen_gegevens.','.$akkoord_privacy_policy.')');
 
-function test($obj){
+        $preparedStatement->execute(array('voorletters' => $voorletters, 'roepnaam' => $roepnaam, 'voorvoegsel'=> $voorvoegsel, 'geboortenaam'=>$geboortenaam,'geboortedatum'=>$geboortedatum,'geslacht'=> $geslacht,'meerling'=> $meerling, 'partnernaam'=> $partnernaam,'voorvoegsel_partnernaam'=>$voorvoegsel_partnernaam,'telefoon'=>$telefoon,'mobiel'=>$mobiel,'email'=>$email,'woonplaats'=>$woonplaats,'postcode'=>$postcode,'toevoeging'=>$toevoeging,'land'=>$land,'foto'=>$foto,'correspondentie_adres'=>$correspondentie_adres,'huisarts'=>$huisarts,'tandarts'=>$tandarts,'apotheek'=>$apotheek));
 
-   global $db;
+        $red = $preparedStatement->fetchAll();
 
-   $sql = "INSERT INTO patienten(voorletters, roepnaam, voorvoegsel, geboortenaam, geboortedatum, geslacht, meerling, partnernaam, voorvoegsel_partnernaam, telefoon, mobiel, email, woonplaats, postcode, huisnummer, toevoeging, land, foto, patientnummer, correspondentie_adres, huisarts, tandarts, apotheek, toestemming_ophalen_gegevens, akkoord_privacy_policy) VALUES ('$obj->voorletters','$obj->roepnaam','$obj->voorvoegsel','$obj->geboortenaam',$obj->geboortedatum,'$obj->geslacht','$obj->meerling','$obj->partnernaam','$obj->voorvoegsel_partnernaam',$obj->telefoon,$obj->mobiel,'$obj->email','$obj->woonplaats','$obj->postcode',$obj->huisnummer,'$obj->toevoeging','$obj->land','$obj->foto',$obj->patientnummer,'$obj->correspondentie_adres','$obj->huisarts','$obj->tandarts','$obj->apotheek',$obj->toestemming_ophalen_gegevens,$obj->akkoord_privacy_policy)";
-
-   $result = $db->query($sql);
-
-   echo "SUcces";
-
-
-};
+    };
