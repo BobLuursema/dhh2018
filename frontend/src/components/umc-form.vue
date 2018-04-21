@@ -469,9 +469,9 @@ export default {
         this.info.akkoord_privacy_policy = true
     },
     complete_address() {
-        var url = 'https://api.postcodeapi.nu/v2/addresses/?postcode=X_P&number=X_N'
+        var url = '/backend/completeaddress/?postcode=X_P&number=X_N'
         var url = url.replace('X_P', this.postcode).replace('X_N', this.huisnummer)
-        var xhttp = this.createCORSRequest('GET', url)
+        var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 var jsonresponse = JSON.parse(xhttp.responseText)
@@ -482,31 +482,8 @@ export default {
                 console.log('not successful')
             }
         }
+        xhttp.open('GET', url)
         xhttp.send()
-    },
-    createCORSRequest(method, url) {
-        var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-
-            // Check if the XMLHttpRequest object has a "withCredentials" property.
-            // "withCredentials" only exists on XMLHTTPRequest2 objects.
-            xhr.open(method, url, true);
-
-        } else if (typeof XDomainRequest != "undefined") {
-
-            // Otherwise, check if XDomainRequest.
-            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
-            xhr.setRequestHeader("X-Api-Key", "JEypHWWhFR5a5CJWRQ0uX2kvVU2Bsy6Y6oMz4svO")
-
-        } else {
-
-            // Otherwise, CORS is not supported by the browser.
-            xhr = null;
-
-        }
-        return xhr;
     },
     one_next() {
         this.page_one = false
