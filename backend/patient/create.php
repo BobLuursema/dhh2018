@@ -21,7 +21,13 @@ if(isset($_POST['data'])){
   $patient = getPatient($obj);
 
   if($patient->num_rows() > 0){
-    
+    while($row = $patient->fetch_assoc()){
+      $patient = new Patient();
+      $patient->voorletters = $row['voorletters'];
+      $patient->geboortenaam = $row['geboortenaam'];
+      $patient->geboortedatum = $row['geboortedatum'];
+      $patient-> = $row['voorletters'];
+    }
   }
 
   if($confirmed == true){
