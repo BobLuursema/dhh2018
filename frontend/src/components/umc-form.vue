@@ -1,10 +1,20 @@
 <template>
     <div class="box">
+        <div class="tabs is-centered is-fullwidth">
+            <ul>
+                <li v-bind:class="{'is-active': page_one}"><a v-on:click="one_select">Basisgegevens</a></li>
+                <li v-bind:class="{'is-active': page_two}"><a v-on:click="two_select">Contactgegevens</a></li>
+                <li v-bind:class="{'is-active': page_three}"><a v-on:click="three_select">Adresgegevens</a></li>
+                <li v-bind:class="{'is-active': page_four}"><a v-on:click="four_select">Overige gegevens</a></li>
+            </ul>
+        </div>
+
+        <progress class="progress is-link" :value=current :max=max></progress>
         <form v-if="niet_verzonden" method="post">
 
-            <div class="box">
+            <div v-if="page_one" class="box">
 
-                <h2>Basisgegevens</h2>
+                <h2 class="is-size-3">Basisgegevens</h2>
 
                 <div class="columns is-mobile">
 
@@ -92,29 +102,34 @@
                 
                 </div>
 
-            </div>
+                <div class="columns is-mobile">
 
-            <div class="columns is-mobile">
-
-                <div class="field column">
-                    <label class="label">Voorvoegsel</label>
-                    <div class="control">
-                        <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel">
+                    <div class="field column">
+                        <label class="label">Voorvoegsel</label>
+                        <div class="control">
+                            <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel">
+                        </div>
                     </div>
+
+                    <div class="field column">
+                        <label class="label">Partnernaam</label>
+                        <div class="control">
+                            <input v-model="info.partnernaam" class="input" type="text" placeholder="Partnernaam">
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="field column">
-                    <label class="label">Partnernaam</label>
-                    <div class="control">
-                        <input v-model="info.partnernaam" class="input" type="text" placeholder="Partnernaam">
-                    </div>
+                <div class="this-buttons">
+                    <div></div>
+                    <a class="button is-link" v-on:click="one_next">Naar contactgegevens</a>
                 </div>
 
             </div>
 
-            <div class="box">
+            <div v-if="page_two" class="box">
 
-                <h2>Contactgegevens</h2>
+                <h2 class="is-size-3">Contactgegevens</h2>
 
                 <div class="columns is-mobile">
 
@@ -141,13 +156,20 @@
                     </div>
                 </div>
 
+                <div class="this-buttons">
+                    <a class="button" v-on:click="two_previous">Terug</a>
+                    <a class="button is-link" v-on:click="two_next">Naar adresgegevens</a>
+                </div>
+
             </div>
 
-            <div class="box">
+            <div v-if="page_three" class="box">
 
-                <h2>Adresgegevens</h2>
+                <h2 class="is-size-3">Adresgegevens</h2>
 
                 <div class="columns is-mobile">
+
+                    <a v-on:click="complete_address">check</a>
 
                     <div class="field column is-half">
                         <label class="label">Postcode</label>
@@ -206,7 +228,7 @@
 
                 <div v-if="correspondentie_ja" class="box">
 
-                    <h2>Correspondentieadres</h2>
+                    <h2 class="is-size-3">Correspondentieadres</h2>
 
                     <div class="columns is-mobile">
 
@@ -259,59 +281,67 @@
                     </div>
 
                 </div>
+
+                <div class="this-buttons">
+                    <a class="button" v-on:click="three_previous">Terug</a>
+                    <a class="button is-link" v-on:click="three_next">Naar overige gegevens</a>
+                </div>
             
             </div>
 
-            <div class="field">
-                <label class="label">Patientnummer</label>
-                <div class="control">
-                    <input v-model="info.patientnummer" class="input" type="text" placeholder="Patientnummer">
+            <div v-if="page_four" class="box">
+
+                <h2 class="is-size-3">Overige gegevens</h2>
+
+                <div class="field">
+                    <label class="label">Patientnummer</label>
+                    <div class="control">
+                        <input v-model="info.patientnummer" class="input" type="text" placeholder="Patientnummer">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Correspondentie adres</label>
-                <div class="control">
-                    <input v-model="info.correspondentie_adres" class="input" type="text" placeholder="Correspondentie adres">
+                <div class="field">
+                    <label class="label">Huisarts</label>
+                    <div class="control">
+                        <input v-model="info.huisarts" class="input" type="text" placeholder="Huisarts">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Huisarts</label>
-                <div class="control">
-                    <input v-model="info.huisarts" class="input" type="text" placeholder="Huisarts">
+                <div class="field">
+                    <label class="label">Tandarts</label>
+                    <div class="control">
+                        <input v-model="info.tandarts" class="input" type="text" placeholder="Tandarts">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Tandarts</label>
-                <div class="control">
-                    <input v-model="info.tandarts" class="input" type="text" placeholder="Tandarts">
+                <div class="field">
+                    <label class="label">Apotheek</label>
+                    <div class="control">
+                        <input v-model="info.apotheek" class="input" type="text" placeholder="Apotheek">
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Apotheek</label>
-                <div class="control">
-                    <input v-model="info.apotheek" class="input" type="text" placeholder="Apotheek">
+                <div class="field">
+                    <label class="checkbox">
+                        <input v-model="info.toestemming_ophalen_gegevens" type="checkbox">
+                        Toestemming ophalen gegevens
+                    </label>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="checkbox">
-                    <input v-model="info.toestemming_ophalen_gegevens" type="checkbox">
-                    Toestemming ophalen gegevens
-                </label>
-            </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input v-model="info.akkoord_privacy_policy" type="checkbox">
+                        Akkoord privacy policy
+                    </label>
+                </div>
 
-            <div class="field">
-                <label class="checkbox">
-                    <input v-model="info.akkoord_privacy_policy" type="checkbox">
-                    Akkoord privacy policy
-                </label>
-            </div>
+                <div class="this-buttons">
+                    <a class="button" v-on:click="four_previous">Terug</a>
+                    <a v-on:click="send" class="button is-link">Verzenden</a>
+                </div>
 
-            <a v-on:click="send" class="button">Verzenden</a>
+            </div>
+            
             <a v-on:click="fill" class="button">Vul formulier in</a>
         </form>
 
@@ -371,13 +401,21 @@ export default {
             tandarts: '',
             apotheek: '',
             toestemming_ophalen_gegevens: false,
-            akkoord_privacy_policy: false
+            akkoord_privacy_policy: false,
+
         },
         correspondentie_ja: false,
         patient_aangemaakt: false,
         patient_bestaat_al: false,
         crash: false,
-        niet_verzonden: true
+        niet_verzonden: true,
+
+        current: 0,
+        max: 3,
+        page_one: true,
+        page_two: false,
+        page_three: false,
+        page_four: false
     }
   },
   methods: {
@@ -387,10 +425,11 @@ export default {
         xhttp.onreadystatechange = function(){
             this.niet_verzonden = false
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
-                if(xhttp.response.indexOf('Patient aangemaakt')){
+                console.log(xhttp.response)
+                if(xhttp.response.indexOf('Patient aangemaakt') !== -1){
                     this.patient_aangemaakt = true
                 }
-                else if(xhttp.response.indexOf('Patient staat al in het systeem')){
+                else if(xhttp.response.indexOf('Patient staat al in het systeem') !== -1){
                     this.patient_bestaat_al = true
                 }
                 else {
@@ -428,11 +467,113 @@ export default {
         this.info.apotheek = 'Apotheek Chaudfontaine'
         this.info.toestemming_ophalen_gegevens = true
         this.info.akkoord_privacy_policy = true
-    }
+    },
+    complete_address() {
+        var url = 'https://api.postcodeapi.nu/v2/addresses/?postcode=X_P&number=X_N'
+        var url = url.replace('X_P', this.postcode).replace('X_N', this.huisnummer)
+        var xhttp = this.createCORSRequest('GET', url)
+        xhttp.onreadystatechange = function(){
+            if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
+                var jsonresponse = JSON.parse(xhttp.responseText)
+                this.woonplaats = jsonresponse.addresses[0].city.label
+                this.straatnaam = jsonresponse.addresses[0].street
+            }
+            else {
+                console.log('not successful')
+            }
+        }
+        xhttp.send()
+    },
+    createCORSRequest(method, url) {
+        var xhr = new XMLHttpRequest();
+        if ("withCredentials" in xhr) {
+
+            // Check if the XMLHttpRequest object has a "withCredentials" property.
+            // "withCredentials" only exists on XMLHTTPRequest2 objects.
+            xhr.open(method, url, true);
+
+        } else if (typeof XDomainRequest != "undefined") {
+
+            // Otherwise, check if XDomainRequest.
+            // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+            xhr = new XDomainRequest();
+            xhr.open(method, url);
+            xhr.setRequestHeader("X-Api-Key", "JEypHWWhFR5a5CJWRQ0uX2kvVU2Bsy6Y6oMz4svO")
+
+        } else {
+
+            // Otherwise, CORS is not supported by the browser.
+            xhr = null;
+
+        }
+        return xhr;
+    },
+    one_next() {
+        this.page_one = false
+        this.page_two = true
+        this.current++
+    },
+    two_next() {
+        this.page_two = false
+        this.page_three = true
+        this.current++
+    },
+    three_next() {
+        this.page_three = false
+        this.page_four = true
+        this.current++
+    },
+    two_previous() {
+        this.page_two = false
+        this.page_one = true
+        this.current--
+    },
+    three_previous() {
+        this.page_three = false
+        this.page_two = true
+        this.current--
+    },
+    four_previous() {
+        this.page_four = false
+        this.page_three = true
+        this.current--
+    },
+    one_select() {
+        this.page_one = true
+        this.page_two = false
+        this.page_three = false
+        this.page_four = false
+        this.current = 0
+    },
+    two_select() {
+        this.page_one = false
+        this.page_two = true
+        this.page_three = false
+        this.page_four = false
+        this.current = 1
+    },
+    three_select() {
+        this.page_one = false
+        this.page_two = false
+        this.page_three = true
+        this.page_four = false
+        this.current = 2
+    },
+    four_select() {
+        this.page_one = false
+        this.page_two = false
+        this.page_three = false
+        this.page_four = true
+        this.current = 3
+    },
   }
 }
 </script>
 
 <style scoped>
+.this-buttons {
+    display: flex;
+    justify-content: space-between;
 
+}
 </style>
