@@ -474,7 +474,7 @@ export default {
         var xhttp = new XMLHttpRequest()
         xhttp.onreadystatechange = function(){
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
-                var jsonresponse = JSON.parse(xhttp.responseText)
+                var jsonresponse = xhttp.response
                 this.woonplaats = jsonresponse.addresses[0].city.label
                 this.straatnaam = jsonresponse.addresses[0].street
             }
