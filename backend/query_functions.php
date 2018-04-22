@@ -50,7 +50,9 @@
         global $db;
 
         $sql = "SELECT * FROM patienten WHERE ";
+        if($obj->patientnummer){
         $sql .= "patientnummer='$obj->patientnummer' OR ";
+        }
         $sql .= "voorletters='$obj->voorletters' AND geboortenaam='$obj->geboortenaam' AND geboortedatum='$obj->geboortedatum'";
 
         $result = mysqli_query($db, $sql);
