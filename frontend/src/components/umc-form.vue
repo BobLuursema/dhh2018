@@ -107,9 +107,9 @@
                             </div>
                         </div>
 
-                        <div class="file field column">
+                        <div class="file field column box" style="margin-top: 0.5em">
                             <label class="file-label">
-                                <input class="file-input" type="file">
+                                <input class="file-input" type="file" accept="image/*" v-on:change="loadFile">
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <i class="fas fa-upload"></i>
@@ -119,6 +119,7 @@
                                     </span>
                                 </span>
                             </label>
+                            <img class="image" style="margin-top: 0.5em; border-radius: 20px;" id="output"/>
                         </div>
                     
                     </div>
@@ -485,6 +486,10 @@ export default {
         xhttp.open('POST', '/backend/patient/create.php', true)
         xhttp.setRequestHeader("Content-Type", "application/json")
         xhttp.send(JSON.stringify(this.info))
+    },
+    loadFile(event){
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
     },
     fill() {
         this.info.voorletters = 'AT'
