@@ -1,24 +1,43 @@
 <template>
     <div class="box">
-        <div class="tabs is-centered is-fullwidth">
-            <ul>
-                <li v-bind:class="{'is-active': page_one}"><a v-on:click="one_select">Basisgegevens</a></li>
-                <li v-bind:class="{'is-active': page_two}"><a v-on:click="two_select">Contactgegevens</a></li>
-                <li v-bind:class="{'is-active': page_three}"><a v-on:click="three_select">Adresgegevens</a></li>
-                <li v-bind:class="{'is-active': page_four}"><a v-on:click="four_select">Overige gegevens</a></li>
-            </ul>
+
+        <div v-if="patient_aangemaakt" class="notification is-success">
+            Uw aanmelding is succesvol binnengekomen.
+        </div>
+        
+        <div v-if="patient_bestaat_al" class="notification is-info">
+            Welkom terug!
         </div>
 
-        <progress class="progress is-link" :value=current :max=max></progress>
+        <div v-if="crash" class="notification is-warning">
+            Uw aanmelding is <strong>niet</strong> aangekomen. Probeer het later nog eens of neem contact met ons op.
+        </div>
+
+        <div v-if="fill_out_required_fields" class="notification is-warning">
+            Vul alstublief alle verplichte velden in.
+        </div>
+
         
         <form v-if="niet_verzonden" method="post">
+
+            <div class="tabs is-centered is-fullwidth">
+                <ul>
+                    <li v-bind:class="{'is-active': page_one}"><a v-on:click="one_select">Basisgegevens</a></li>
+                    <li v-bind:class="{'is-active': page_two}"><a v-on:click="two_select">Contactgegevens</a></li>
+                    <li v-bind:class="{'is-active': page_three}"><a v-on:click="three_select">Adresgegevens</a></li>
+                    <li v-bind:class="{'is-active': page_four}"><a v-on:click="four_select">Overige gegevens</a></li>
+                </ul>
+            </div>
+
+            <progress class="progress is-link" :value=current :max=max></progress>
+        
 
             <transition name="fade">
                 <div v-if="page_one" class="box page">
 
                     <h2 class="is-size-3">Basisgegevens</h2>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
 
                         <div class="field column ">
                             <label class="label">Voorletters</label>
@@ -36,7 +55,7 @@
                     
                     </div>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
                     
                         <div class="field column">
                             <label class="label">Tussenvoegsel</label>
@@ -61,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
 
                         <div class="field column">
                             <label class="label">Aanhef</label>
@@ -111,7 +130,7 @@
                         </label>
                     </div>
 
-                    <div v-if="partner_ja" class="columns is-mobile">
+                    <div v-if="partner_ja" class="columns">
 
                         <div class="field column">
                             <label class="label">Voorvoegsel</label>
@@ -142,7 +161,7 @@
 
                     <h2 class="is-size-3">Contactgegevens</h2>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
 
                         <div class="field column">
                             <label class="label">Telefoonnummer <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
@@ -180,7 +199,7 @@
 
                     <h2 class="is-size-3">Adresgegevens</h2>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
 
                         <div class="field column is-half">
                             <label class="label">Postcode</label>
@@ -205,19 +224,19 @@
 
                     </div>
 
-                    <div class="columns is-mobile">
+                    <div class="columns">
 
                         <div class="field column">
                             <label class="label">Woonplaats</label>
                             <div class="control">
-                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.woonplaats" class="input" type="text">
+                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.woonplaats" class="input" disabled type="text">
                             </div>
                         </div>
 
                         <div class="field column">
                             <label class="label">Straatnaam</label>
                             <div class="control">
-                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.straatnaam" class="input" type="text">
+                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.straatnaam" class="input" disabled type="text">
                             </div>
                         </div>
                     
@@ -226,7 +245,7 @@
                     <div class="field">
                         <label class="label">Land</label>
                         <div class="control">
-                            <input v-bind:class="{'is-loading': ca_load}" v-model="info.land" class="input" type="text">
+                            <input v-bind:class="{'is-loading': ca_load}" v-model="info.land" class="input" disabled type="text">
                         </div>
                     </div>
 
@@ -241,7 +260,7 @@
 
                         <h2 class="is-size-3">Correspondentieadres</h2>
 
-                        <div class="columns is-mobile">
+                        <div class="columns">
 
                             <div class="field column is-half">
                                 <label class="label">Postcode</label>
@@ -266,7 +285,7 @@
 
                         </div>
 
-                        <div class="columns is-mobile">
+                        <div class="columns">
 
                             <div class="field column">
                                 <label class="label">Woonplaats</label>
@@ -361,18 +380,6 @@
         <a v-on:click="fill" class="button">TEST: Vul formulier in</a>
         <label>TEST: stub toggle <input v-model="stub" type="checkbox"></label>
 
-        <div v-if="patient_aangemaakt" class="notification is-success">
-            Uw aanmelding is succesvol binnengekomen.
-        </div>
-        
-        <div v-if="patient_bestaat_al" class="notification is-info">
-            Welkom terug!
-        </div>
-
-        <div v-if="crash" class="notification is-warning">
-            Uw aanmelding is <strong>niet</strong> aangekomen. Probeer het later nog eens of neem contact met ons op.
-        </div>
-
     </div>
 </template>
 
@@ -425,6 +432,7 @@ export default {
         patient_bestaat_al: false,
         crash: false,
         niet_verzonden: true,
+        fill_out_required_fields: false,
 
         current: 0,
         max: 3,
@@ -451,6 +459,10 @@ export default {
                 }
                 else if(xhttp.response.indexOf('Patient staat al in het systeem') !== -1){
                     self.patient_bestaat_al = true
+                }
+                else if (xhttp.response.indexOf('Please fill out all required fields') !== -1){
+                    self.fill_out_required_fields = true
+                    self.niet_verzonden = true
                 }
                 else {
                     self.crash = true
