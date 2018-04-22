@@ -10,246 +10,196 @@
         </div>
 
         <progress class="progress is-link" :value=current :max=max></progress>
+        
         <form v-if="niet_verzonden" method="post">
 
-            <div v-if="page_one" class="box">
+            <transition name="fade">
+                <div v-if="page_one" class="box page">
 
-                <h2 class="is-size-3">Basisgegevens</h2>
+                    <h2 class="is-size-3">Basisgegevens</h2>
 
-                <div class="columns is-mobile">
+                    <div class="columns is-mobile">
 
-                    <div class="field column ">
-                        <label class="label">Voorletters</label>
+                        <div class="field column ">
+                            <label class="label">Voorletters</label>
+                            <div class="control">
+                                <input v-model="info.voorletters" class="input" type="text">
+                            </div>
+                        </div>
+
+                        <div class="field column">
+                            <label class="label">Roepnaam</label>
+                            <div class="control">
+                                <input v-model="info.roepnaam" class="input" type="text">
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="columns is-mobile">
+                    
+                        <div class="field column">
+                            <label class="label">Tussenvoegsel</label>
+                            <div class="control">
+                                <input v-model="info.voorvoegsel" class="input" type="text">
+                            </div>
+                        </div>
+
+                        <div class="field column">
+                            <label class="label">Geboortenaam</label>
+                            <div class="control">
+                                <input v-model="info.geboortenaam" class="input" type="text" placeholder="Vul hier je meisjesnaam of achternaam in">
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Geboortedatum</label>
                         <div class="control">
-                            <input v-model="info.voorletters" class="input" type="text" placeholder="Voorletters">
+                            <input v-model="info.geboortedatum" class="input" type="date">
                         </div>
                     </div>
 
-                    <div class="field column">
-                        <label class="label">Roepnaam</label>
-                        <div class="control">
-                            <input v-model="info.roepnaam" class="input" type="text" placeholder="Roepnaam">
+                    <div class="columns is-mobile">
+
+                        <div class="field column">
+                            <label class="label">Aanhef</label>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" value="man" v-model="info.geslacht">
+                                    De heer
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" value="vrouw" v-model="info.geslacht">
+                                    Mevrouw
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                
-                </div>
 
-                <div class="columns is-mobile">
-                
-                    <div class="field column">
-                        <label class="label">Tussenvoegsel</label>
-                        <div class="control">
-                            <input v-model="info.voorvoegsel" class="input" type="text" placeholder="Tussenvoegsel">
+                        <div class="field column">
+                            <label class="label">Ben je een twee- of meerling?</label>
+                            <div class="select">
+                                <select v-model="info.meerling">
+                                    <option>Ja</option>
+                                    <option selected>Nee</option>
+                                    <option>Onbekend</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="field column">
-                        <label class="label">Geboortenaam</label>
-                        <div class="control">
-                            <input v-model="info.geboortenaam" class="input" type="text" placeholder="Geboortenaam">
-                        </div>
-                    </div>
-                
-                </div>
-
-                <div class="field">
-                    <label class="label">Geboortedatum</label>
-                    <div class="control">
-                        <input v-model="info.geboortedatum" class="input" type="date">
-                    </div>
-                </div>
-
-                <div class="columns is-mobile">
-
-                    <div class="field column">
-                        <label class="label">Aanhef</label>
-                        <div class="control">
-                            <label class="radio">
-                                <input type="radio" value="man" v-model="info.geslacht">
-                                Man
-                            </label>
-                            <label class="radio">
-                                <input type="radio" value="vrouw" v-model="info.geslacht">
-                                Vrouw
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Meerling</label>
-                        <div class="select">
-                            <select v-model="info.meerling">
-                                <option>Ja</option>
-                                <option selected>Nee</option>
-                                <option>Onbekend</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="file field column">
-                        <label class="file-label">
-                            <input class="file-input" type="file">
-                            <span class="file-cta">
-                                <span class="file-icon">
-                                    <i class="fas fa-upload"></i>
+                        <div class="file field column">
+                            <label class="file-label">
+                                <input class="file-input" type="file">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Kies een foto
+                                    </span>
                                 </span>
-                                <span class="file-label">
-                                    Kies een foto
-                                </span>
-                            </span>
+                            </label>
+                        </div>
+                    
+                    </div>
+
+                    <div class="field">
+                        <label class="checkbox">
+                            <input v-model="partner_ja" type="checkbox">
+                            Heb je een partner?
                         </label>
                     </div>
-                
+
+                    <div v-if="partner_ja" class="columns is-mobile">
+
+                        <div class="field column">
+                            <label class="label">Voorvoegsel</label>
+                            <div class="control">
+                                <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel van je partner">
+                            </div>
+                        </div>
+
+                        <div class="field column">
+                            <label class="label">Partnernaam</label>
+                            <div class="control">
+                                <input v-model="info.partnernaam" class="input" type="text" placeholder="Achternaam van je partner">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="this-buttons">
+                        <div></div>
+                        <a class="button is-link" v-on:click="one_next">Naar contactgegevens</a>
+                    </div>
+
                 </div>
+            </transition>
 
-                <div class="columns is-mobile">
+            <transition name="fade">
+                <div v-if="page_two" class="box page">
 
-                    <div class="field column">
-                        <label class="label">Voorvoegsel</label>
+                    <h2 class="is-size-3">Contactgegevens</h2>
+
+                    <div class="columns is-mobile">
+
+                        <div class="field column">
+                            <label class="label">Telefoonnummer <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
+                            <div class="control">
+                                <input v-model="info.telefoon" class="input" type="tel">
+                            </div>
+                        </div>
+
+                        <div class="field column">
+                            <label class="label">Mobiel nummer</label>
+                            <div class="control">
+                                <input v-model="info.mobiel" class="input" type="tel">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Email</label>
                         <div class="control">
-                            <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel">
+                            <input v-model="info.email" class="input" type="email">
                         </div>
                     </div>
 
-                    <div class="field column">
-                        <label class="label">Partnernaam</label>
-                        <div class="control">
-                            <input v-model="info.partnernaam" class="input" type="text" placeholder="Partnernaam">
-                        </div>
+                    <div class="this-buttons">
+                        <a class="button" v-on:click="two_previous">Terug</a>
+                        <a class="button is-link" v-on:click="two_next">Naar adresgegevens</a>
                     </div>
 
                 </div>
+            </transition>
 
-                <div class="this-buttons">
-                    <div></div>
-                    <a class="button is-link" v-on:click="one_next">Naar contactgegevens</a>
-                </div>
+            <transition name="fade">
+                <div v-if="page_three" class="box page">
 
-            </div>
-
-            <div v-if="page_two" class="box">
-
-                <h2 class="is-size-3">Contactgegevens</h2>
-
-                <div class="columns is-mobile">
-
-                    <div class="field column">
-                        <label class="label">Telefoonnummer</label>
-                        <div class="control">
-                            <input v-model="info.telefoon" class="input" type="tel">
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Mobiel nummer</label>
-                        <div class="control">
-                            <input v-model="info.mobiel" class="input" type="tel">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input v-model="info.email" class="input" type="email">
-                    </div>
-                </div>
-
-                <div class="this-buttons">
-                    <a class="button" v-on:click="two_previous">Terug</a>
-                    <a class="button is-link" v-on:click="two_next">Naar adresgegevens</a>
-                </div>
-
-            </div>
-
-            <div v-if="page_three" class="box">
-
-                <h2 class="is-size-3">Adresgegevens</h2>
-
-                <div class="columns is-mobile">
-
-                    <a v-on:click="complete_address">check</a>
-
-                    <div class="field column is-half">
-                        <label class="label">Postcode</label>
-                        <div class="control">
-                            <input v-model="info.postcode" class="input" type="text" placeholder="Postcode">
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Huisnummer</label>
-                        <div class="control">
-                            <input v-model="info.huisnummer" class="input" type="text" placeholder="Huisnummer">
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Toevoeging</label>
-                        <div class="control">
-                            <input v-model="info.toevoeging" class="input" type="text" placeholder="Toevoeging">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="columns is-mobile">
-
-                    <div class="field column">
-                        <label class="label">Woonplaats</label>
-                        <div class="control">
-                            <input v-model="info.woonplaats" class="input" type="text" placeholder="Woonplaats">
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Straatnaam</label>
-                        <div class="control">
-                            <input v-model="info.straatnaam" class="input" type="text" placeholder="straatnaam">
-                        </div>
-                    </div>
-                
-                </div>
-
-                <div class="field">
-                    <label class="label">Land</label>
-                    <div class="control">
-                        <input v-model="info.land" class="input" type="text" placeholder="Land">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="checkbox">
-                        <input v-model="correspondentie_ja" type="checkbox">
-                        Afwijkend adres voor correspondentie
-                    </label>
-                </div>
-
-                <div v-if="correspondentie_ja" class="box">
-
-                    <h2 class="is-size-3">Correspondentieadres</h2>
+                    <h2 class="is-size-3">Adresgegevens</h2>
 
                     <div class="columns is-mobile">
 
                         <div class="field column is-half">
                             <label class="label">Postcode</label>
                             <div class="control">
-                                <input v-model="info.cor_postcode" class="input" type="text" placeholder="Postcode">
+                                <input v-model="info.postcode" class="input" type="text">
                             </div>
                         </div>
 
                         <div class="field column">
                             <label class="label">Huisnummer</label>
                             <div class="control">
-                                <input v-model="info.cor_huisnummer" class="input" type="text" placeholder="Huisnummer">
+                                <input v-on:blur="complete_address" v-model="info.huisnummer" class="input" type="text">
                             </div>
                         </div>
 
                         <div class="field column">
                             <label class="label">Toevoeging</label>
                             <div class="control">
-                                <input v-model="info.cor_toevoeging" class="input" type="text" placeholder="Toevoeging">
+                                <input v-model="info.toevoeging" class="input" type="text">
                             </div>
                         </div>
 
@@ -260,14 +210,14 @@
                         <div class="field column">
                             <label class="label">Woonplaats</label>
                             <div class="control">
-                                <input v-model="info.cor_woonplaats" class="input" type="text" placeholder="Woonplaats">
+                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.woonplaats" class="input" type="text">
                             </div>
                         </div>
 
                         <div class="field column">
                             <label class="label">Straatnaam</label>
                             <div class="control">
-                                <input v-model="info.cor_straatnaam" class="input" type="text" placeholder="straatnaam">
+                                <input v-bind:class="{'is-loading': ca_load}" v-model="info.straatnaam" class="input" type="text">
                             </div>
                         </div>
                     
@@ -276,74 +226,140 @@
                     <div class="field">
                         <label class="label">Land</label>
                         <div class="control">
-                            <input v-model="info.cor_land" class="input" type="text" placeholder="Land">
+                            <input v-bind:class="{'is-loading': ca_load}" v-model="info.land" class="input" type="text">
                         </div>
                     </div>
 
-                </div>
-
-                <div class="this-buttons">
-                    <a class="button" v-on:click="three_previous">Terug</a>
-                    <a class="button is-link" v-on:click="three_next">Naar overige gegevens</a>
-                </div>
-            
-            </div>
-
-            <div v-if="page_four" class="box">
-
-                <h2 class="is-size-3">Overige gegevens</h2>
-
-                <div class="field">
-                    <label class="label">Patientnummer</label>
-                    <div class="control">
-                        <input v-model="info.patientnummer" class="input" type="text" placeholder="Patientnummer">
+                    <div class="field">
+                        <label class="checkbox">
+                            <input v-model="correspondentie_ja" type="checkbox">
+                            Afwijkend adres voor correspondentie
+                        </label>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Huisarts</label>
-                    <div class="control">
-                        <input v-model="info.huisarts" class="input" type="text" placeholder="Huisarts">
+                    <div v-if="correspondentie_ja" class="box">
+
+                        <h2 class="is-size-3">Correspondentieadres</h2>
+
+                        <div class="columns is-mobile">
+
+                            <div class="field column is-half">
+                                <label class="label">Postcode</label>
+                                <div class="control">
+                                    <input v-model="info.cor_postcode" class="input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="field column">
+                                <label class="label">Huisnummer</label>
+                                <div class="control">
+                                    <input v-model="info.cor_huisnummer" class="input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="field column">
+                                <label class="label">Toevoeging</label>
+                                <div class="control">
+                                    <input v-model="info.cor_toevoeging" class="input" type="text">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="columns is-mobile">
+
+                            <div class="field column">
+                                <label class="label">Woonplaats</label>
+                                <div class="control">
+                                    <input v-model="info.cor_woonplaats" class="input" type="text">
+                                </div>
+                            </div>
+
+                            <div class="field column">
+                                <label class="label">Straatnaam</label>
+                                <div class="control">
+                                    <input v-model="info.cor_straatnaam" class="input" type="text">
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Land</label>
+                            <div class="control">
+                                <input v-model="info.cor_land" class="input" type="text">
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Tandarts</label>
-                    <div class="control">
-                        <input v-model="info.tandarts" class="input" type="text" placeholder="Tandarts">
+                    <div class="this-buttons">
+                        <a class="button" v-on:click="three_previous">Terug</a>
+                        <a class="button is-link" v-on:click="three_next">Naar overige gegevens</a>
                     </div>
+                
                 </div>
+            </transition>
 
-                <div class="field">
-                    <label class="label">Apotheek</label>
-                    <div class="control">
-                        <input v-model="info.apotheek" class="input" type="text" placeholder="Apotheek">
+            <transition name="fade">
+                <div v-if="page_four" class="box page">
+
+                    <h2 class="is-size-3">Overige gegevens</h2>
+
+                    <div class="field">
+                        <label class="label">Patientnummer <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
+                        <div class="control">
+                            <input v-model="info.patientnummer" class="input" type="text">
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="checkbox">
-                        <input v-model="info.toestemming_ophalen_gegevens" type="checkbox">
-                        Toestemming ophalen gegevens
-                    </label>
-                </div>
+                    <div class="field">
+                        <label class="label">Huisarts</label>
+                        <div class="control">
+                            <input v-model="info.huisarts" class="input" type="text">
+                        </div>
+                    </div>
 
-                <div class="field">
-                    <label class="checkbox">
-                        <input v-model="info.akkoord_privacy_policy" type="checkbox">
-                        Akkoord privacy policy
-                    </label>
-                </div>
+                    <div class="field">
+                        <label class="label">Tandarts <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
+                        <div class="control">
+                            <input v-model="info.tandarts" class="input" type="text">
+                        </div>
+                    </div>
 
-                <div class="this-buttons">
-                    <a class="button" v-on:click="four_previous">Terug</a>
-                    <a v-on:click="send" class="button is-link">Verzenden</a>
-                </div>
+                    <div class="field">
+                        <label class="label">Apotheek</label>
+                        <div class="control">
+                            <input v-model="info.apotheek" class="input" type="text">
+                        </div>
+                    </div>
 
-            </div>
-            
-            <a v-on:click="fill" class="button">Vul formulier in</a>
+                    <div class="field">
+                        <label class="checkbox">
+                            <input v-model="info.toestemming_ophalen_gegevens" type="checkbox">
+                            Ik geef toestemming om mijn medische gegevens op te halen bij mijn ziekenhuis of huisarts, dit is optioneel.
+                        </label>
+                    </div>
+
+                    <div class="field">
+                        <label class="checkbox">
+                            <input v-model="info.akkoord_privacy_policy" type="checkbox">
+                            Ik ga akkoord met de <a class="is-link">privacy policy</a> van UMC Utrecht.
+                        </label>
+                    </div>
+
+                    <div class="this-buttons">
+                        <a class="button" v-on:click="four_previous">Terug</a>
+                        <a v-on:click="send" class="button is-link">Verzenden</a>
+                    </div>
+
+                </div>
+            </transition>
+                
         </form>
+
+        <a v-on:click="fill" class="button">TEST: Vul formulier in</a>
+        <label>TEST: stub toggle <input v-model="stub" type="checkbox"></label>
 
         <div v-if="patient_aangemaakt" class="notification is-success">
             Uw aanmelding is succesvol binnengekomen.
@@ -415,7 +431,11 @@ export default {
         page_one: true,
         page_two: false,
         page_three: false,
-        page_four: false
+        page_four: false,
+
+        stub: true,
+        ca_load: false,
+        partner_ja: false,
     }
   },
   methods: {
@@ -469,6 +489,7 @@ export default {
         this.info.akkoord_privacy_policy = true
     },
     complete_address() {
+        this.ca_load = true
         var url = '/backend/completeaddress.php?postcode=X_P&number=X_N'
         var url = url.replace('X_P', this.info.postcode).replace('X_N', this.info.huisnummer)
         var xhttp = new XMLHttpRequest()
@@ -483,8 +504,16 @@ export default {
                 console.log('not successful')
             }
         }
-        xhttp.open('GET', url)
-        xhttp.send()
+        if(this.stub){
+            this.info.woonplaats = "Utrecht"
+            this.info.straatnaam = "Kerkstraat"
+        }
+        else {
+            xhttp.open('GET', url)
+            xhttp.send()
+        }
+        this.info.land = "Nederland"
+        this.ca_load = false
     },
     one_next() {
         this.page_one = false
@@ -552,6 +581,18 @@ export default {
 .this-buttons {
     display: flex;
     justify-content: space-between;
+}
+.fade-enter-active {
+    transition: opacity .3s .3s;
+}
 
+.fade-leave-active {
+    transition: opacity .3s;
+}
+.fade-enter {
+    opacity: 0;
+}
+.fade-leave-to {
+    opacity: 0;
 }
 </style>
