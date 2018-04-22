@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box this">
 
         <div v-if="patient_aangemaakt" class="notification is-success">
             Uw aanmelding is succesvol binnengekomen.
@@ -14,7 +14,7 @@
         </div>
 
         <div v-if="fill_out_required_fields" class="notification is-warning">
-            Vul alstublief alle verplichte velden in.
+            Vul alstublieft alle verplichte velden in.
         </div>
 
         
@@ -36,6 +36,20 @@
                 <div v-if="page_one" class="box page">
 
                     <h2 class="is-size-3">Basisgegevens</h2>
+
+                    <div class="field column">
+                        <label class="label">Aanhef</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" value="man" v-model="info.geslacht">
+                                De heer
+                            </label>
+                            <label class="radio">
+                                <input type="radio" value="vrouw" v-model="info.geslacht">
+                                Mevrouw
+                            </label>
+                        </div>
+                    </div>
 
                     <div class="columns">
 
@@ -81,20 +95,6 @@
                     </div>
 
                     <div class="columns">
-
-                        <div class="field column">
-                            <label class="label">Aanhef</label>
-                            <div class="control">
-                                <label class="radio">
-                                    <input type="radio" value="man" v-model="info.geslacht">
-                                    De heer
-                                </label>
-                                <label class="radio">
-                                    <input type="radio" value="vrouw" v-model="info.geslacht">
-                                    Mevrouw
-                                </label>
-                            </div>
-                        </div>
 
                         <div class="field column">
                             <label class="label">Ben je een twee- of meerling?</label>
@@ -323,7 +323,7 @@
             <transition name="fade">
                 <div v-if="page_four" class="box page">
 
-                    <h2 class="is-size-3">Overige gegevens</h2>
+                    <h2 class="is-size-3">Zorggegevens</h2>
 
                     <div class="field">
                         <label class="label">Patientnummer <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
@@ -333,7 +333,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Huisarts</label>
+                        <label class="label">Huisarts <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
                         <div class="control">
                             <input v-model="info.huisarts" class="input" type="text">
                         </div>
@@ -347,7 +347,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Apotheek</label>
+                        <label class="label">Apotheek <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
                         <div class="control">
                             <input v-model="info.apotheek" class="input" type="text">
                         </div>
@@ -377,8 +377,10 @@
                 
         </form>
 
-        <a v-on:click="fill" class="button">TEST: Vul formulier in</a>
-        <label>TEST: stub toggle <input v-model="stub" type="checkbox"></label>
+        <div class="box test">
+            <a v-on:click="fill" class="button">TEST: Vul formulier in</a><br>
+            <label>TEST: stub toggle <input v-model="stub" type="checkbox"></label>
+        </div>
 
     </div>
 </template>
@@ -452,6 +454,10 @@ export default {
         self = this
         xhttp.onreadystatechange = function(){
             self.niet_verzonden = false
+            self.patient_aangemaakt = false
+            self.patient_bestaat_al = false
+            self.fill_out_required_fields = false
+            self.crash = false
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 console.log(xhttp.response)
                 if(xhttp.response.indexOf('Patient aangemaakt') !== -1){
@@ -527,6 +533,9 @@ export default {
         this.info.land = "Nederland"
         this.ca_load = false
     },
+    page_done(page){
+
+    },
     one_next() {
         this.page_one = false
         this.page_two = true
@@ -590,6 +599,9 @@ export default {
 </script>
 
 <style scoped>
+.test {
+    margin-top: 30em;
+}
 .this-buttons {
     display: flex;
     justify-content: space-between;
@@ -606,5 +618,8 @@ export default {
 }
 .fade-leave-to {
     opacity: 0;
+}
+.this {
+    margin: 1em;
 }
 </style>

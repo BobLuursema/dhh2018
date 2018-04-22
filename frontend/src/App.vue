@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <header></header>
-    
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <router-link to="/" class="navbar-item">UMC Utrecht</router-link>
-        <router-link to="/aanmelden" class="navbar-item">Aanmelden</router-link>
-      </div>
-    </nav>
-    
+    <header>
+      <router-link to="/">
+        <img src="./assets/Header2.png">
+      </router-link>
+    </header>
+
     <router-view/>
 
-    <footer></footer>
+    <footer>
+      <img src="./assets/Footer.png">
+    </footer>
   </div>
 </template>
 
@@ -22,7 +21,10 @@ export default {
 </script>
 
 <style>
-#app {
-  margin: 1em;
+footer, header {
+  width: 100vw;
+}
+header {
+  margin-bottom: 1em;
 }
 </style>
