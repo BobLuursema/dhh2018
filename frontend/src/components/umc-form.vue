@@ -440,24 +440,24 @@ export default {
   },
   methods: {
     send() {
-
         var xhttp = new XMLHttpRequest()
+        self = this
         xhttp.onreadystatechange = function(){
-            this.niet_verzonden = false
+            self.niet_verzonden = false
             if(xhttp.readyState === XMLHttpRequest.DONE && xhttp.status == 200){
                 console.log(xhttp.response)
                 if(xhttp.response.indexOf('Patient aangemaakt') !== -1){
-                    this.patient_aangemaakt = true
+                    self.patient_aangemaakt = true
                 }
                 else if(xhttp.response.indexOf('Patient staat al in het systeem') !== -1){
-                    this.patient_bestaat_al = true
+                    self.patient_bestaat_al = true
                 }
                 else {
-                    this.crash = true
+                    self.crash = true
                 }
             }
             else if (xhttp.readyState === XMLHttpRequest.DONE) {
-                console.log('not successful')
+                self.crash = true
             }
         }
         xhttp.open('POST', '/backend/patient/create.php', true)
