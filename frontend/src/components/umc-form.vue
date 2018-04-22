@@ -180,7 +180,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">Email</label>
+                        <label class="label">E-mail</label>
                         <div class="control">
                             <input v-model="info.email" class="input" type="email">
                         </div>
@@ -204,7 +204,7 @@
                         <div class="field column is-half">
                             <label class="label">Postcode</label>
                             <div class="control">
-                                <input v-model="info.postcode" class="input" type="text">
+                                <input v-on:blur="complete_address" v-model="info.postcode" class="input" type="text">
                             </div>
                         </div>
 
@@ -446,6 +446,8 @@ export default {
         stub: true,
         ca_load: false,
         partner_ja: false,
+        
+        page_not_done: false,
     }
   },
   methods: {
@@ -508,8 +510,11 @@ export default {
     },
     complete_address() {
         this.ca_load = true
+        if(this.info.postcode === '' || this.info.huisnummer === '' || !this.info.huisnummer.match(/^\d+$/) || !this.info.postcode.match(/^\d{4}\w{2}$/)){
+            return
+        }
         var url = '/backend/completeaddress.php?postcode=X_P&number=X_N'
-        var url = url.replace('X_P', this.info.postcode).replace('X_N', this.info.huisnummer)
+        var url = url.replace('X_P', this.info.postcode.toUpperCase()).replace('X_N', this.info.huisnummer)
         var xhttp = new XMLHttpRequest()
         var self = this
         xhttp.onreadystatechange = function(){
@@ -533,40 +538,102 @@ export default {
         this.info.land = "Nederland"
         this.ca_load = false
     },
-    page_done(page){
-
+    page_done(){
+        var page = this.current + 1
+        if(page == 1){
+            if(this.info.geslacht == '' || this.info.roepnaam == '' || this.info.geboortenaam == '' || this.info.geboortedatum == ''){
+                window.scrollTo(0,0)
+                return false
+            }
+            else {
+                return true
+            }
+        }
+        if(page == 2){
+            if(this.info.mobiel == '' || this.info.email == ''){
+                window.scrollTo(0,0)
+                return false
+            }
+            else {
+                return true
+            }
+        }
+        if(page == 3){
+            if(this.info.postcode == '' || this.info.huisnummer == '' ){
+                window.scrollTo(0,0)
+                return false
+            }
+            else {
+                return true
+            }
+        }
     },
     one_next() {
-        this.page_one = false
-        this.page_two = true
-        this.current++
+        this.fill_out_required_fields = false
+        var done = this.page_done()
+        if(done){
+            this.page_one = false
+            this.page_two = true
+            this.current++
+        }
+        else {
+            this.fill_out_required_fields = true
+        }
     },
     two_next() {
-        this.page_two = false
-        this.page_three = true
-        this.current++
+        this.fill_out_required_fields = false
+        var done = this.page_done()
+        if(done){
+            this.page_two = false
+            this.page_three = true
+            this.current++
+        }
+        else {
+            this.fill_out_required_fields = true
+        }
     },
     three_next() {
-        this.page_three = false
-        this.page_four = true
-        this.current++
+        this.fill_out_required_fields = false
+        var done = this.page_done()
+        if(done){
+            this.page_three = false
+            this.page_four = true
+            this.current++
+        }
+        else {
+            this.fill_out_required_fields = true
+        }
     },
     two_previous() {
+        window.scrollTo(0,0)
+        this.fill_out_required_fields = false
         this.page_two = false
         this.page_one = true
         this.current--
     },
     three_previous() {
+        window.scrollTo(0,0)
+        this.fill_out_required_fields = false
         this.page_three = false
         this.page_two = true
         this.current--
     },
     four_previous() {
+        window.scrollTo(0,0)
+        this.fill_out_required_fields = false
         this.page_four = false
         this.page_three = true
         this.current--
     },
     one_select() {
+        if(1 > this.current){
+            var done = this.page_done()
+            this.fill_out_required_fields = false
+            if(!done){
+                this.fill_out_required_fields = true
+                return
+            }
+        }
         this.page_one = true
         this.page_two = false
         this.page_three = false
@@ -574,6 +641,14 @@ export default {
         this.current = 0
     },
     two_select() {
+        if(2 > this.current){
+            var done = this.page_done()
+            this.fill_out_required_fields = false
+            if(!done){
+                this.fill_out_required_fields = true
+                return
+            }
+        }
         this.page_one = false
         this.page_two = true
         this.page_three = false
@@ -581,6 +656,14 @@ export default {
         this.current = 1
     },
     three_select() {
+        if(3 > this.current){
+            var done = this.page_done()
+            this.fill_out_required_fields = false
+            if(!done){
+                this.fill_out_required_fields = true
+                return
+            }
+        }
         this.page_one = false
         this.page_two = false
         this.page_three = true
@@ -588,6 +671,14 @@ export default {
         this.current = 2
     },
     four_select() {
+        if(4 > this.current){
+            var done = this.page_done()
+            this.fill_out_required_fields = false
+            if(!done){
+                this.fill_out_required_fields = true
+                return
+            }
+        }
         this.page_one = false
         this.page_two = false
         this.page_three = false

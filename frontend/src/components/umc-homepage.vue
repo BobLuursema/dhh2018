@@ -14,5 +14,6 @@ export default {
 <style scoped>
   .this {
     margin: 1em;
+    padding: 4em;
   }
 </style>
