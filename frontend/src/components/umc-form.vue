@@ -72,7 +72,7 @@
                     <div class="columns">
                     
                         <div class="field column">
-                            <label class="label">Tussenvoegsel</label>
+                            <label class="label">Tussenvoegsel <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
                             <div class="control">
                                 <input v-model="info.voorvoegsel" class="input" type="text">
                             </div>
@@ -133,7 +133,7 @@
                     <div v-if="partner_ja" class="columns">
 
                         <div class="field column">
-                            <label class="label">Voorvoegsel</label>
+                            <label class="label">Voorvoegsel <span class="has-text-grey is-italic has-text-weight-light">- is optioneel</span></label>
                             <div class="control">
                                 <input v-model="info.voorvoegsel_partnernaam" class="input" type="text" placeholder="Voorvoegsel van je partner">
                             </div>
@@ -377,7 +377,7 @@
                 
         </form>
 
-        <div class="box test">
+        <div v-if="testing" class="box test">
             <a v-on:click="fill" class="button">TEST: Vul formulier in</a><br>
             <label>TEST: stub toggle <input v-model="stub" type="checkbox"></label>
         </div>
@@ -443,7 +443,8 @@ export default {
         page_three: false,
         page_four: false,
 
-        stub: true,
+        stub: false,
+        testing: false,
         ca_load: false,
         partner_ja: false,
         
@@ -452,6 +453,7 @@ export default {
   },
   methods: {
     send() {
+        window.scrollTo(0,0)
         var xhttp = new XMLHttpRequest()
         self = this
         xhttp.onreadystatechange = function(){
